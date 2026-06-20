@@ -63,6 +63,8 @@ Filename: "{app}\\bin\\compiler.exe"; Parameters: "run ""{app}\\..\\examples\\he
 
 [Code]
 procedure CurStepChanged(CurStep: TSetupStep);
+var
+  ResultCode: Integer;
 begin
   if CurStep = ssPostInstall then
   begin
