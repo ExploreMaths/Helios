@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.13] - 2026-06-20
+
+- README 和 Sphinx 文档顶部改用 `jaon-social.png`（带文字标语的社交预览图），不再只放图标
+
 ## [0.0.12] - 2026-06-20
 
 - 重新设计 Logo：保留 Java 图标三条 S 形线，改用 Python 蓝黄配色，去掉外圈圆盘，并放大至接近画布边缘

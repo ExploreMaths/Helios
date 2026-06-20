@@ -13,8 +13,8 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'Jaon'
 copyright = '2026, Jaon Project'
 author = 'Jaon Project'
-release = '0.0.12'
-version = '0.0.12'
+release = '0.0.13'
+version = '0.0.13'
 
 # -- General configuration ---------------------------------------------------
 extensions = [
@@ -53,7 +53,7 @@ html_css_files = [
 ]
 
 # Logo and favicon
-html_logo = "../assets/logo/jaon-logo-256x256.png"
+html_logo = "../assets/logo/jaon-social.png"
 html_favicon = "../assets/logo/jaon-logo.ico"
 
 # -- Intersphinx mapping -----------------------------------------------------

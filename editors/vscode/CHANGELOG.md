@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.13]
+
+- Use `jaon-social.png` banner in README and Sphinx docs instead of the square logo icon.
+
 ## [0.0.12]
 
 - Redesign logo: keep Java's three S-shaped lines, color them in Python blue/yellow, remove outer circle, enlarge to near canvas edge.

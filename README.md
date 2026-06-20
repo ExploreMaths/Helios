@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo/jaon-logo-256x256.png" alt="Jaon Logo" width="160">
+  <img src="assets/logo/jaon-social.png" alt="Jaon" width="640">
 </p>
 
 <h1 align="center">Jaon 编程语言</h1>
@@ -282,8 +282,8 @@ flake8 jaon tests scripts --max-line-length=120 --extend-ignore=E203,W503
 推送标签即可触发 GitHub Actions 自动构建 Windows 可执行文件并发布 Release：
 
 ```bash
-git tag v0.0.12
-git push origin v0.0.12
+git tag v0.0.13
+git push origin v0.0.13
 ```
 
 ## 许可证
