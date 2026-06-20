@@ -22,45 +22,80 @@ def run_file(path: str) -> None:
     execute(compiler.module_code)
 
 
+class _NewlineTrackingStdout:
+    """Wrap stdout so the REPL can emit a trailing newline when needed."""
+
+    def __init__(self, stdout):
+        self._stdout = stdout
+        self.at_line_start = True
+
+    def write(self, text):
+        self._stdout.write(text)
+        if text:
+            self.at_line_start = text.endswith("\n")
+
+    def flush(self):
+        self._stdout.flush()
+
+    def isatty(self):
+        return getattr(self._stdout, "isatty", lambda: False)()
+
+    def ensure_newline(self):
+        if not self.at_line_start:
+            self._stdout.write("\n")
+            self._stdout.flush()
+            self.at_line_start = True
+
+
 def run_repl() -> None:
     print(f"Helios {__version__} REPL")
     print("Type 'exit' or press Ctrl+C to quit.\n")
 
-    while True:
-        try:
-            line = input(">>> ")
-        except (EOFError, KeyboardInterrupt):
-            print("\nGoodbye.")
-            break
+    # Replace stdout so we can keep the prompt on its own line after print().
+    original_stdout = sys.stdout
+    tracked_stdout = _NewlineTrackingStdout(original_stdout)
+    sys.stdout = tracked_stdout
 
-        stripped = line.strip()
-        if stripped == "exit":
-            print("Goodbye.")
-            break
-        if not stripped:
-            continue
-
-        # Allow multiline input if braces are unbalanced
-        source = line
-        while source.count("{") > source.count("}"):
+    try:
+        while True:
             try:
-                extra = input("... ")
+                line = input(">>> ")
             except (EOFError, KeyboardInterrupt):
+                print("\nGoodbye.")
                 break
-            source += "\n" + extra
 
-        try:
-            tokens = tokenize(source)
-            program = parse(tokens)
-            analyze(program)
-            compiler = compile_program(program)
-            result = execute(compiler.module_code)
-            if result is not None:
-                print(result)
-        except (LexerError, ParseError, HeliosTypeError) as e:
-            print(f"Error: {e}", file=sys.stderr)
-        except Exception as e:
-            print(f"Runtime error: {e}", file=sys.stderr)
+            stripped = line.strip()
+            if stripped == "exit":
+                print("Goodbye.")
+                break
+            if not stripped:
+                continue
+
+            # Allow multiline input if braces are unbalanced
+            source = line
+            while source.count("{") > source.count("}"):
+                try:
+                    extra = input("... ")
+                except (EOFError, KeyboardInterrupt):
+                    break
+                source += "\n" + extra
+
+            try:
+                tokens = tokenize(source)
+                program = parse(tokens)
+                analyze(program)
+                compiler = compile_program(program)
+                result = execute(compiler.module_code)
+                if result is not None:
+                    print(result)
+            except (LexerError, ParseError, HeliosTypeError) as e:
+                print(f"Error: {e}", file=sys.stderr)
+            except Exception as e:
+                print(f"Runtime error: {e}", file=sys.stderr)
+            finally:
+                tracked_stdout.ensure_newline()
+    finally:
+        sys.stdout = original_stdout
 
 
 def disassemble_file(path: str) -> None:
