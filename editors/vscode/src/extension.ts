@@ -1,12 +1,28 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { createCompletionProvider, createHoverProvider } from './language';
 
 const JAON_TERMINAL_NAME = 'Jaon';
+const JAON_LANGUAGE = 'jaon';
 
 export function activate(context: vscode.ExtensionContext) {
     const runCommand = vscode.commands.registerCommand('jaon.run', runJaonFile);
     context.subscriptions.push(runCommand);
+
+    const completionProvider = vscode.languages.registerCompletionItemProvider(
+        JAON_LANGUAGE,
+        createCompletionProvider(),
+        // Trigger characters
+        '.',
+    );
+    context.subscriptions.push(completionProvider);
+
+    const hoverProvider = vscode.languages.registerHoverProvider(
+        JAON_LANGUAGE,
+        createHoverProvider()
+    );
+    context.subscriptions.push(hoverProvider);
 }
 
 export function deactivate() {

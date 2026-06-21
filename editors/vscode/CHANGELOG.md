@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.1.1]
+
+- Add IntelliSense auto-completion for Jaon keywords, types, built-in functions, common methods, and snippets.
+- Add hover provider showing details for Jaon keywords, types, and built-in functions.
+
 ## [0.1.0]
 
 - First stable release, version bumped from `0.0.x` to `0.1.0`.

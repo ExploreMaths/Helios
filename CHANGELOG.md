@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-20
+
+- VS Code 扩展新增 Jaon 语言自动补全（关键字、类型、内建函数、常用方法、代码片段）
+- VS Code 扩展新增鼠标悬停提示（Hover），显示关键字、类型与内建函数说明
+
 ## [0.1.0] - 2026-06-20
 
 ### Added
